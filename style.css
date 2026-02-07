@@ -355,6 +355,10 @@ section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
+.project-card.video-active:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px var(--accent-glow);
+}
 
 .project-thumb {
   width: 100%; aspect-ratio: 16/10;

@@ -110,13 +110,10 @@ if (canAutoloadVideos()) {
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allow', 'autoplay; encrypted-media');
         iframe.setAttribute('loading', 'lazy');
-        thumb.insertBefore(iframe, thumb.firstChild);
+        thumb.appendChild(iframe);
 
-        // Re-add play overlay for click-to-expand
-        const overlay = document.createElement('div');
-        overlay.className = 'project-play';
-        overlay.textContent = '▶';
-        thumb.appendChild(overlay);
+        // Mark card as video-active (no play button needed)
+        card.classList.add('video-active');
 
         videoObserver.unobserve(thumb);
       }
