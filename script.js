@@ -71,6 +71,61 @@ const statObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.stat-value').forEach(el => statObserver.observe(el));
 
+// ─── Adaptive video loading ───
+// Detect if device can handle inline video previews
+function canAutoloadVideos() {
+  const cores = navigator.hardwareConcurrency || 2;
+  const conn = navigator.connection;
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  // Need 4+ cores, not on mobile, and decent connection
+  if (cores < 4 || isMobile) return false;
+  if (conn) {
+    // Skip on slow connections (2g, slow-2g, 3g) or data saver
+    if (conn.saveData) return false;
+    if (conn.effectiveType && ['slow-2g', '2g', '3g'].includes(conn.effectiveType)) return false;
+  }
+  return true;
+}
+
+// Swap thumbnails for autoplay iframes on powerful devices
+// Load them lazily — only when scrolled into view
+if (canAutoloadVideos()) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const thumb = entry.target;
+        const card = thumb.closest('.project-card');
+        const videoId = card.dataset.video;
+        if (!videoId) return;
+
+        // Replace img + play button with muted autoplay iframe
+        const img = thumb.querySelector('img');
+        const play = thumb.querySelector('.project-play');
+        if (img) img.remove();
+        if (play) play.remove();
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        iframe.setAttribute('loading', 'lazy');
+        thumb.insertBefore(iframe, thumb.firstChild);
+
+        // Re-add play overlay for click-to-expand
+        const overlay = document.createElement('div');
+        overlay.className = 'project-play';
+        overlay.textContent = '▶';
+        thumb.appendChild(overlay);
+
+        videoObserver.unobserve(thumb);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '200px 0px' });
+
+  document.querySelectorAll('.project-thumb').forEach(thumb => videoObserver.observe(thumb));
+}
+
 // ─── Video lightbox modal ───
 const videoModal = document.getElementById('videoModal');
 const modalPlayer = document.getElementById('modalPlayer');
@@ -88,7 +143,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
 
-    // Create fresh iframe each time to avoid caching issues
+    // Create fresh iframe each time
     modalPlayer.innerHTML = `<iframe
       src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1"
       frameborder="0"
