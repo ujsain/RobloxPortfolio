@@ -70,3 +70,47 @@ const statObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 document.querySelectorAll('.stat-value').forEach(el => statObserver.observe(el));
+
+// ─── Video lightbox modal ───
+const videoModal = document.getElementById('videoModal');
+const modalPlayer = document.getElementById('modalPlayer');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const videoId = card.dataset.video;
+    if (!videoId) return;
+
+    const title = card.querySelector('.project-info h3').textContent;
+    const desc = card.querySelector('.project-info p').textContent;
+
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+
+    // Create fresh iframe each time to avoid caching issues
+    modalPlayer.innerHTML = `<iframe
+      src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>`;
+
+    videoModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeVideoModal() {
+  videoModal.classList.remove('active');
+  document.body.style.overflow = '';
+  // Destroy iframe to stop video
+  setTimeout(() => { modalPlayer.innerHTML = ''; }, 300);
+}
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+    closeVideoModal();
+  }
+});

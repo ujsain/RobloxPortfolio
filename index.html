@@ -98,64 +98,77 @@
     <p class="section-desc">A selection of projects showcasing my experience and expertise.</p>
   </div>
   <div class="portfolio-grid">
-    <div class="project-card project-featured reveal">
-      <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
-        <div class="placeholder-icon">🌮</div>
-        <div class="project-overlay"><span>View</span></div>
+    <div class="project-card project-featured reveal" data-video="01Fkofs51dQ">
+      <div class="project-thumb">
+        <img src="https://img.youtube.com/vi/01Fkofs51dQ/maxresdefault.jpg" alt="Road-Side Shawarma" loading="lazy">
+        <div class="project-play">▶</div>
       </div>
       <div class="project-info">
         <h3>Road-Side Shawarma</h3>
         <p>Lead Scripter for the December update — implementing new features and gameplay systems.</p>
       </div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-thumb" style="background: linear-gradient(135deg, #0f2027, #203a43);">
-        <div class="placeholder-icon">🚗</div>
-        <div class="project-overlay"><span>View</span></div>
+    <div class="project-card reveal" data-video="01Fkofs51dQ">
+      <div class="project-thumb">
+        <img src="https://img.youtube.com/vi/01Fkofs51dQ/maxresdefault.jpg" alt="Vehicle System" loading="lazy">
+        <div class="project-play">▶</div>
       </div>
       <div class="project-info">
         <h3>Vehicle System</h3>
         <p>Full physics-based vehicle controller with drifting and damage.</p>
       </div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-thumb" style="background: linear-gradient(135deg, #1a0a2e, #2d1b69);">
-        <div class="placeholder-icon">🏃</div>
-        <div class="project-overlay"><span>View</span></div>
+    <div class="project-card reveal" data-video="01Fkofs51dQ">
+      <div class="project-thumb">
+        <img src="https://img.youtube.com/vi/01Fkofs51dQ/maxresdefault.jpg" alt="Movement System" loading="lazy">
+        <div class="project-play">▶</div>
       </div>
       <div class="project-info">
         <h3>Movement System</h3>
         <p>Fluid character movement with parkour and momentum mechanics.</p>
       </div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-thumb" style="background: linear-gradient(135deg, #2e0a0a, #4a1515);">
-        <div class="placeholder-icon">⚔️</div>
-        <div class="project-overlay"><span>View</span></div>
+    <div class="project-card reveal" data-video="01Fkofs51dQ">
+      <div class="project-thumb">
+        <img src="https://img.youtube.com/vi/01Fkofs51dQ/maxresdefault.jpg" alt="Combat System" loading="lazy">
+        <div class="project-play">▶</div>
       </div>
       <div class="project-info">
         <h3>Combat System</h3>
         <p>Combo-based combat with hitstun, blocking, and knockback.</p>
       </div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-thumb" style="background: linear-gradient(135deg, #0a2e1a, #154a2e);">
-        <div class="placeholder-icon">💃</div>
-        <div class="project-overlay"><span>View</span></div>
+    <div class="project-card reveal" data-video="01Fkofs51dQ">
+      <div class="project-thumb">
+        <img src="https://img.youtube.com/vi/01Fkofs51dQ/maxresdefault.jpg" alt="Emote System" loading="lazy">
+        <div class="project-play">▶</div>
       </div>
       <div class="project-info">
         <h3>Emote System</h3>
         <p>Custom emote wheel with animation blending and social features.</p>
       </div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-thumb" style="background: linear-gradient(135deg, #2e2e0a, #4a4515);">
-        <div class="placeholder-icon">🔫</div>
-        <div class="project-overlay"><span>View</span></div>
+    <div class="project-card reveal" data-video="01Fkofs51dQ">
+      <div class="project-thumb">
+        <img src="https://img.youtube.com/vi/01Fkofs51dQ/maxresdefault.jpg" alt="Tank System" loading="lazy">
+        <div class="project-play">▶</div>
       </div>
       <div class="project-info">
         <h3>Tank System</h3>
         <p>Fully controllable tanks with turret rotation and projectile physics.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Lightbox Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-backdrop" onclick="closeVideoModal()"></div>
+    <div class="video-modal-content">
+      <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
+      <div class="video-modal-player" id="modalPlayer"></div>
+      <div class="video-modal-info">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
       </div>
     </div>
   </div>

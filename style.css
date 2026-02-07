@@ -362,25 +362,113 @@ section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
   display: flex; align-items: center; justify-content: center;
   position: relative; overflow: hidden;
 }
-.project-thumb .placeholder-icon {
-  font-size: 2.5rem; opacity: 0.15;
+
+.project-thumb img {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.project-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+  background: rgba(10, 10, 11, 0.3);
+  transition: background 0.3s;
+}
+.project-card:hover .project-play {
+  background: rgba(10, 10, 11, 0.5);
+}
+
+.project-play::before {
+  content: '';
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  border: 2px solid rgba(16, 185, 129, 0.4);
+  position: absolute;
   transition: all 0.3s;
 }
-.project-card:hover .placeholder-icon { opacity: 0.25; transform: scale(1.1); }
-
-.project-overlay {
-  position: absolute; inset: 0;
-  background: rgba(10,10,11,0.7);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.3s;
+.project-card:hover .project-play::before {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: var(--accent);
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
 }
-.project-card:hover .project-overlay { opacity: 1; }
 
-.project-overlay span {
-  font-family: var(--font-mono); font-size: 0.8rem;
-  color: var(--accent); border: 1px solid var(--accent);
-  padding: 0.4rem 1rem; border-radius: 6px;
-  background: rgba(16,185,129,0.1);
+.project-play {
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+/* ─── Video Lightbox Modal ─── */
+.video-modal {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.video-modal.active {
+  opacity: 1; visibility: visible;
+}
+
+.video-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.video-modal-content {
+  position: relative; z-index: 1;
+  width: 90%; max-width: 900px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.video-modal.active .video-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.video-modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  z-index: 3;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(10, 10, 11, 0.8);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s;
+}
+.video-modal-close:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-color: var(--accent);
+}
+
+.video-modal-player {
+  width: 100%; aspect-ratio: 16/9;
+  background: #000;
+  position: relative;
+}
+.video-modal-player iframe {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+.video-modal-info {
+  padding: 1.5rem;
+}
+.video-modal-info h3 {
+  font-size: 1.1rem; font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.video-modal-info p {
+  font-size: 0.85rem; color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .project-info { padding: 1.25rem; }
