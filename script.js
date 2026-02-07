@@ -22,7 +22,7 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 
 // ─── Copy Discord handle to clipboard ───
 function copyDiscord(el) {
-  navigator.clipboard.writeText('USain');
+  navigator.clipboard.writeText('us1piece');
   const copyText = el.querySelector('.discord-copy');
   copyText.textContent = 'Copied!';
   copyText.style.color = 'var(--accent)';
